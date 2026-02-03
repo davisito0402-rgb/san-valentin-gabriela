@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine Edition - Para Gabriela</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cinzel:wght@400;600&family=Great+Vibes&family=Lora:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lora', serif;
+            background: linear-gradient(135deg, #f5e6d3 0%, #e8d4c0 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* --- Páginas --- */
+        .page { display: none; animation: fadeIn 0.8s ease-in; }
+        .page.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Contenedor periódico base --- */
+        .newspaper, .reasons-page, .final-page {
+            max-width: 800px;
+            margin: 30px auto;
+            background: #f9f4ed;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            border: 2px solid #8B4513;
+        }
+
+        /* --- Cabecera del periódico --- */
+        .newspaper-header {
+            text-align: center;
+            border-bottom: 4px double #8B0000;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .newspaper-title {
+            font-family: 'Cinzel', serif;
+            font-size: 3em;
+            color: #8B0000;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+        }
+
+        .newspaper-date {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.9em;
+            color: #5a3e36;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 5px 0;
+        }
+
+        .section-header {
+            font-family: 'Playfair Display', serif;
+            font-size: 1em;
+            text-transform: uppercase;
+            text-align: center;
+            letter-spacing: 3px;
+            margin: 20px 0;
+            color: #5a3e36;
+        }
+
+        .main-headline {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4em;
+            text-align: center;
+            color: #8B0000;
+            margin: 30px 0;
+            line-height: 1.2;
+        }
+
+        /* --- Página 1: Estilos de texto --- */
+        .portada-distribucion {
+            text-align: center;
+            font-family: 'Cinzel', serif;
+            font-size: 1.2em;
+            margin: 30px 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .portada-nombre {
+            font-family: 'Cinzel', serif;
+            font-size: 2em;
+            text-align: center;
+            color: #8B0000;
+            margin: 40px 0;
+        }
+
+        .portada-invitacion {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5em;
+            color: #8B0000;
+            margin: 30px 0;
+        }
+
+        .portada-diario {
+            text-align: center;
+            margin: 30px 0;
+            font-size: 1em;
+            line-height: 1.8;
+        }
+
+        .portada-diario p {
+            font-family: 'Lora', serif;
+            font-style: italic;
+            color: #5a3e36;
+        }
+
+        .portada-texto {
+            font-size: 1.1em;
+            line-height: 1.8;
+            text-align: justify;
+            margin: 30px 0;
+        }
+
+        /* --- Página 2: Motivos --- */
+        .reasons-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5em;
+            color: #8B0000;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .reasons-subtitle {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8em;
+            color: #8B0000;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .reason-item {
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(255,255,255,0.5);
+            border-left: 4px solid #8B0000;
+            border-radius: 5px;
+        }
+
+        .reason-header {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .reason-number {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5em;
+            color: #8B0000;
+            font-weight: bold;
+            margin-right: 20px;
+            min-width: 60px;
+        }
+
+        .reason-text {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.8em;
+            color: #5a3e36;
+            line-height: 1.4;
+        }
+
+        .reason-image {
+            width: 100%;
+            max-width: 400px;
+            height: 250px;
+            margin: 15px auto;
+            display: block;
+            object-fit: cover;
+            border: 3px solid #8B4513;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* --- Página 3: Artículo --- */
+        .articulo-titulo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2em;
+            text-align: center;
+            margin: 30px 0;
+            color: #8B0000;
+        }
+
+        .articulo-subtitulo {
+            text-align: center;
+            font-style: italic;
+            margin: 20px 0;
+        }
+
+        .articulo-cuerpo {
+            margin: 40px 0;
+            font-size: 1.1em;
+            line-height: 2;
+            text-align: justify;
+        }
+
+        .articulo-cuerpo p {
+            margin-bottom: 20px;
+        }
+
+        .letra-grande {
+            font-size: 3em;
+            float: left;
+            line-height: 0.8;
+            margin: 10px 10px 0 0;
+            font-family: 'Cinzel', serif;
+            color: #8B0000;
+        }
+
+        .articulo-cita {
+            font-style: italic;
+            text-align: center;
+            font-size: 1.2em;
+            color: #8B0000;
+        }
+
+        /* --- Página 4: Carta --- */
+        .final-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5em;
+            color: #8B0000;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .letter-box {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
+            margin: 30px 0;
+        }
+
+        .letter-from, .letter-to {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2em;
+            color: #8B0000;
+        }
+
+        .letter-from { margin-bottom: 10px; }
+        .letter-to { margin-bottom: 30px; }
+
+        .letter-content {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2em;
+            line-height: 2;
+            color: #5a3e36;
+            text-align: justify;
+            margin: 20px 0;
+        }
+
+        .signature {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.5em;
+            color: #8B0000;
+            text-align: right;
+            margin-top: 40px;
+        }
+
+        .carta-advertencia {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .carta-emoji { font-size: 3em; }
+
+        /* --- Avisos --- */
+        .warning-box {
+            background: rgba(255, 235, 205, 0.8);
+            border: 2px solid #DAA520;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .warning-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5em;
+            color: #8B0000;
+            margin-bottom: 15px;
+        }
+
+        .warning-text {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #5a3e36;
+        }
+
+        /* --- Navigación --- */
+        .nav-button {
+            display: inline-block;
+            margin: 30px 10px;
+            padding: 12px 30px;
+            background: #8B0000;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-family: 'Cinzel', serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background: #a30000;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(139,0,0,0.3);
+        }
+
+        .nav-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        /* --- Página 5: La pregunta --- */
+        .page-final {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 40px 30px;
+            background: linear-gradient(to bottom, #d4958c 0%, #c97c7c 100%);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+
+        .header-decorative {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5em;
+            color: white;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .heart-container {
+            margin: 40px auto;
+            position: relative;
+            width: 250px;
+            height: 250px;
+        }
+
+        .heart-shape {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            background: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .heart-shape::before,
+        .heart-shape::after {
+            content: "";
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: white;
+        }
+
+        .heart-shape::before { top: -100px; left: 0; }
+        .heart-shape::after { left: 100px; top: 0; }
+
+        .heart-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.2em;
+            color: #c97c7c;
+            z-index: 10;
+            text-align: center;
+            width: 250px;
+            pointer-events: none;
+        }
+
+        .message-box {
+            background: rgba(255,255,255,0.9);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 30px 0;
+            font-size: 1.1em;
+            line-height: 1.8;
+            color: #5a3e36;
+        }
+
+        .pregunta-titulo {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3em;
+            color: white;
+            margin: 30px 0;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            font-family: 'Cinzel', serif;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        .btn-yes {
+            background: #8B0000;
+            color: white;
+            box-shadow: 0 5px 15px rgba(139,0,0,0.3);
+        }
+
+        .btn-yes:hover {
+            background: #a30000;
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(139,0,0,0.4);
+        }
+
+        .btn-no {
+            background: transparent;
+            color: #8B0000;
+            border: 3px solid #8B0000;
+        }
+
+        .btn-no:hover { background: rgba(139,0,0,0.1); }
+
+        /* --- Página 6: Gracias --- */
+        .thank-you-page {
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 60px 40px;
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+            border: 3px solid #8B0000;
+        }
+
+        .thank-you-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4.5em;
+            color: #8B0000;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .thank-you-message {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3em;
+            line-height: 2;
+            color: #5a3e36;
+            margin: 30px 0;
+        }
+
+        .thank-you-emoji { font-size: 5em; margin: 30px 0; }
+
+        .thank-you-firma {
+            margin-top: 50px;
+            font-family: 'Great Vibes', cursive;
+            font-size: 3em;
+            color: #8B0000;
+        }
+
+        .thank-you-destaque {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.5em;
+            color: #8B0000;
+        }
+
+        /* --- Corazones flotantes --- */
+        .hearts-animation {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            animation: float 6s ease-in infinite;
+            opacity: 0;
+        }
+
+        @keyframes float {
+            0%   { opacity: 0; transform: translateY(100vh) rotate(0deg); }
+            10%  { opacity: 1; }
+            90%  { opacity: 1; }
+            100% { opacity: 0; transform: translateY(-100px) rotate(360deg); }
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 768px) {
+            .newspaper, .reasons-page, .final-page, .page-final, .thank-you-page {
+                margin: 20px;
+                padding: 20px;
+            }
+            .newspaper-title { font-size: 2em; }
+            .main-headline { font-size: 2.5em; }
+            .heart-container { transform: scale(0.8); }
+            .reason-text { font-size: 1.3em; }
+            .button-container { flex-direction: column; }
+            .thank-you-title { font-size: 3em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts-animation" id="heartsContainer"></div>
+
+    <!-- PÁGINA 1: Portada -->
+    <div class="page active" id="page1">
+        <div class="newspaper">
+            <div class="newspaper-header">
+                <div class="newspaper-title">Valentine Edition</div>
+                <div class="newspaper-date">14 de febrero de 2026 · Me gustas mucho · Juntos por siempre</div>
+            </div>
+
+            <div class="section-header">Edición Especial</div>
+            <h1 class="main-headline">The Love</h1>
+
+            <p class="portada-distribucion">Distribución:<br>Exclusiva para la persona más especial</p>
+            <h2 class="portada-nombre">GABRIELA</h2>
+            <p class="portada-invitacion">Una invitación que no pasa desapercibida.</p>
+
+            <div class="portada-diario">
+                <p><strong>Diario de amor:</strong> San Valentine · 💝 · love+.</p>
+            </div>
+
+            <p class="portada-texto">
+                Lo que comenzó como una conexión tranquila, hoy se perfila como la historia más interesante de esta temporada. Fuentes cercanas confirman miradas largas, sonrisas sospechosas y una invitación imposible de ignorar.
+            </p>
+
+            <div class="nav-container">
+                <button class="nav-button" onclick="nextPage()">Deseo Continuar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PÁGINA 2: 5 Motivos -->
+    <div class="page" id="page2">
+        <div class="reasons-page">
+            <div class="newspaper-header">
+                <div class="newspaper-title">Valentine Edition</div>
+                <div class="newspaper-date">14 de febrero de 2026</div>
+            </div>
+
+            <div class="section-header">Sección Especial</div>
+            <h2 class="reasons-title">Motivos que invitan</h2>
+            <h3 class="reasons-subtitle">a decir que sí</h3>
+
+            <div class="reason-item">
+                <div class="reason-header">
+                    <div class="reason-number">01</div>
+                    <div class="reason-text">Porque cada momento a tu lado, incluso los más simples, se sienten como los más importantes de mi vida.</div>
+                </div>
+                <img id="img1" class="reason-image" alt="Foto 1">
+            </div>
+
+            <div class="reason-item">
+                <div class="reason-header">
+                    <div class="reason-number">02</div>
+                    <div class="reason-text">Porque tu risa hace que todo tenga sentido, y tu sonrisa es mi lugar favorito en el mundo.</div>
+                </div>
+                <img id="img2" class="reason-image" alt="Foto 2">
+            </div>
+
+            <div class="reason-item">
+                <div class="reason-header">
+                    <div class="reason-number">03</div>
+                    <div class="reason-text">Porque contigo he aprendido que el amor no es perfecto, pero sí es real, honesto y profundo.</div>
+                </div>
+                <img id="img3" class="reason-image" alt="Foto 3">
+            </div>
+
+            <div class="reason-item">
+                <div class="reason-header">
+                    <div class="reason-number">04</div>
+                    <div class="reason-text">Porque eres mi persona favorita para compartir tanto los mejores días como los más difíciles.</div>
+                </div>
+                <img id="img4" class="reason-image" alt="Foto 4">
+            </div>
+
+            <div class="reason-item">
+                <div class="reason-header">
+                    <div class="reason-number">05</div>
+                    <div class="reason-text">Porque simplemente no imagino a nadie más a mi lado en este día tan especial... ni en ningún otro.</div>
+                </div>
+                <img id="img5" class="reason-image" alt="Foto 5">
+            </div>
+
+            <div class="warning-box">
+                <div class="warning-title">Nota del Editor:</div>
+                <div class="warning-text">Negarse a esta invitación podría causar arrepentimiento leve y sonrisas no correspondidas.</div>
+            </div>
+
+            <div class="nav-container">
+                <button class="nav-button" onclick="prevPage()">Pág. Anterior</button>
+                <button class="nav-button" onclick="nextPage()">Pág. Siguiente</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PÁGINA 3: Artículo -->
+    <div class="page" id="page3">
+        <div class="newspaper">
+            <div class="newspaper-header">
+                <div class="newspaper-title">Valentine Edition</div>
+                <div class="newspaper-date">14 de febrero de 2026</div>
+            </div>
+
+            <h2 class="articulo-titulo">Crónica de una conexión</h2>
+            <p class="articulo-subtitulo">Cuando lo simple se vuelve importante.</p>
+
+            <div class="articulo-cuerpo">
+                <p><span class="letra-grande">L</span>o que comenzó como una conexión tranquila, hoy se perfila como la historia más interesante de esta temporada.</p>
+                <p>Tras analizar conversaciones, momentos compartidos, y una cantidad considerable de pensamientos inesperados, se llegó a una conclusión clara: esta invitación tenía que hacerse de la mejor forma posible.</p>
+                <p>No fue impulsiva ni improvisada. Fue el resultado de sentir comodidad, interés y una conexión que creció fuerte.</p>
+                <p class="articulo-cita">Fuentes cercanas confirman que la pregunta fue escrita con intención, calma y un toque de ilusión.</p>
+            </div>
+
+            <div class="nav-container">
+                <button class="nav-button" onclick="prevPage()">Pág. Anterior</button>
+                <button class="nav-button" onclick="nextPage()">Pág. Siguiente</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PÁGINA 4: Carta de David -->
+    <div class="page" id="page4">
+        <div class="final-page">
+            <div class="newspaper-header">
+                <div class="newspaper-title">Valentine Edition</div>
+                <div class="newspaper-date">14 de febrero de 2026</div>
+            </div>
+
+            <h1 class="final-title">Entrega Especial</h1>
+
+            <div class="letter-box">
+                <div class="letter-from">De: David</div>
+                <div class="letter-to">Para: Gabriela</div>
+
+                <div class="carta-advertencia">
+                    <div class="carta-emoji">💝</div>
+                    <div class="warning-title">¡Advertencia!</div>
+                    <div class="warning-text">
+                        Leer esto puede provocar: sonrisas involuntarias, ganas de pensar en mí y una leve sospecha de que este San Valentín podría ser muy especial.<br><br>
+                        Continúa bajo tu propio riesgo.
+                    </div>
+                </div>
+
+                <div class="letter-content">
+                    Gabriela,<br><br>
+                    A pesar de todos los momentos difíciles que hemos pasado, a pesar de los desacuerdos y las veces que las cosas no han sido fáciles, sigues siendo mi persona favorita.<br><br>
+                    Cada obstáculo que hemos superado juntos solo ha hecho que lo que tenemos sea más real, más fuerte y más valioso para mí. No busco la perfección contigo, busco la honestidad, la complicidad y esos momentos simples que solo tienen sentido cuando estás tú.<br><br>
+                    Has sido mi compañera en los días buenos y mi apoyo en los complicados. Y aunque no siempre ha sido fácil, siempre ha valido la pena porque eres tú. Me haces querer ser mejor, me haces reír cuando menos lo espero, y me haces sentir que, pase lo que pase, no estoy solo en esto.<br><br>
+                    Este 14 de febrero quiero celebrarte, celebrarnos, y recordarte que incluso en medio de los momentos difíciles, elegirte siempre ha sido la decisión más fácil que he tomado.<br><br>
+                    Gracias por quedarte, por creer en nosotros, y por ser exactamente quien eres.<br><br>
+                    Te quiero, Gabriela. Hoy y siempre.
+                </div>
+
+                <div class="signature">Con amor, David</div>
+            </div>
+
+            <div class="nav-container">
+                <button class="nav-button" onclick="prevPage()">Pág. Anterior</button>
+                <button class="nav-button" onclick="nextPage()">Continuar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PÁGINA 5: La pregunta -->
+    <div class="page" id="page5">
+        <div class="page-final">
+            <h1 class="header-decorative">Confirmado oficialmente:</h1>
+
+            <div class="heart-container">
+                <div class="heart-shape"></div>
+                <div class="heart-text">Eres mi San Valentín</div>
+            </div>
+
+            <div class="message-box">
+                Prometo un día tranquilo, bonito, y lleno de pequeños momentos que valgan la pena.<br><br>
+                Así que ahora sí...<br>
+                con el corazón en la mano<br>
+                y una sonrisa nerviosa:
+            </div>
+
+            <h2 class="pregunta-titulo">¿Quieres ser mi San Valentín?</h2>
+
+            <div class="button-container">
+                <button class="btn btn-no" id="btnNo" onclick="moveButton()">NO</button>
+                <button class="btn btn-yes" onclick="acceptProposal()">ACEPTOOOOO</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PÁGINA 6: Gracias -->
+    <div class="page" id="page6">
+        <div class="thank-you-page">
+            <h1 class="thank-you-title">¡Gracias por decir que sí!</h1>
+            <div class="thank-you-emoji">💘</div>
+
+            <div class="thank-you-message">
+                Prepárate para un día bonito, lleno de sonrisas inevitables y recuerdos que se van a quedar.<br><br>
+                Contigo todo tiene más sentido, y este 14 de febrero quiero celebrar lo especial que eres para mí.<br><br>
+                No prometo perfección, pero sí prometo que cada momento será auténtico, dedicado y lleno de cariño.<br><br>
+                <strong class="thank-you-destaque">Gracias por ser mi San Valentín, Gabriela.</strong><br><br>
+                Te quiero muchísimo 💝
+            </div>
+
+            <div class="thank-you-firma">
+                Con todo mi amor,<br>David
+            </div>
+
+            <div class="nav-container">
+                <button class="nav-button" onclick="goToStart()">Volver al Inicio</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentPage = 1;
+        const totalPages = 6;
+        let buttonMoves = 0;
+
+        // --- Corazones flotantes ---
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '💝';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDelay = Math.random() * 6 + 's';
+            heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+            document.getElementById('heartsContainer').appendChild(heart);
+            setTimeout(() => heart.remove(), 6000);
+        }
+        setInterval(createHeart, 500);
+
+        // --- Navegación entre páginas ---
+        function nextPage() {
+            if (currentPage < totalPages) {
+                document.getElementById('page' + currentPage).classList.remove('active');
+                currentPage++;
+                document.getElementById('page' + currentPage).classList.add('active');
+                window.scrollTo(0, 0);
+            }
+        }
+
+        function prevPage() {
+            if (currentPage > 1) {
+                document.getElementById('page' + currentPage).classList.remove('active');
+                currentPage--;
+                document.getElementById('page' + currentPage).classList.add('active');
+                window.scrollTo(0, 0);
+            }
+        }
+
+        function goToStart() {
+            document.getElementById('page' + currentPage).classList.remove('active');
+            currentPage = 1;
+            document.getElementById('page1').classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        // --- Botón NO que se escapa ---
+        function moveButton() {
+            const button = document.getElementById('btnNo');
+            buttonMoves++;
+
+            if (buttonMoves <= 3) {
+                const container = button.parentElement;
+                const maxX = container.getBoundingClientRect().width - button.offsetWidth;
+                const randomX = Math.random() * maxX;
+                const randomY = (Math.random() * 100) - 50;
+                button.style.transform = `translate(${randomX - button.offsetLeft}px, ${randomY}px) scale(${1 - buttonMoves * 0.15})`;
+            } else {
+                button.style.opacity = '0';
+                button.style.transform = 'scale(0)';
+                setTimeout(() => button.style.display = 'none', 300);
+            }
+        }
+
+        // --- Aceptar la propuesta ---
+        function acceptProposal() {
+            for (let i = 0; i < 50; i++) {
+                setTimeout(createHeart, i * 50);
+            }
+            setTimeout(nextPage, 800);
+        }
+
+        // --- Imágenes ---
+        ['1','2','3','4','5'].forEach(n => {
+            document.getElementById('img' + n).src = 'foto' + n + '.jpg';
+        });
+    </script>
+</body>
+</html>
